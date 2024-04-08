@@ -1,0 +1,12 @@
+.welcome{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20vh;
+}
+.welcome h1{
+    font-family: "Comic Sans MS", cursive;
+    font-size: 10vh;
+    font-weight: bold;
+}
