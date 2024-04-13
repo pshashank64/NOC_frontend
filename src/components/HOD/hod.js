@@ -1,6 +1,6 @@
 import Nav from "../Nav/nav";
 import Login from "../Login/Login";
-import HodLoginService from "../../services/HodLoginService";
+import HodLoginService from "../../services/HodService";
 import "./hod.css"
 
 import { getMessage } from "../../services/getMessage";
@@ -26,7 +26,7 @@ function Hod () {
 
     return (
         <>
-            <Nav onLoginClick={handleLoginClick} />
+            <Nav onLoginClick={handleLoginClick} role="HOD" />
             {!showLogin && 
             <div className="welcome">
                 <h1>Welcome {user ? user : "HOD"}</h1>

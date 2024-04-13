@@ -1,0 +1,15 @@
+body{
+    background-color: #696969;
+}
+
+.welcome{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.welcome h3{
+    font-weight: bold;
+}

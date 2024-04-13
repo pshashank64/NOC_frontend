@@ -1,30 +1,30 @@
 .login {
     font-family: "Comic Sans MS", cursive;
-    margin: 0;
     display: flex;
     align-items: center;
+    margin-top: 20vh;
     justify-content: center;
     min-height: 60vh;
-    background: #f5f5f5;
     color: #333;
   }
   
   .container {
     width: 100%;
-    max-width: 400px;
+    max-width: 35vw;
   }
   
   .card {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     width: 100%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #37474f;
+    padding: 10vh;
+    border-radius: 30px;
   }
   
   h2 {
     text-align: center;
-    color: #333;
+    color: #e8e5e5;
+    margin-bottom: 20px;
   }
   
   form {
@@ -33,21 +33,22 @@
   }
   
   input {
-    padding: 10px;
-    margin-bottom: 12px;
+    background-color: inherit;
+    padding: 15px;
+    margin-bottom: 22px;
     border: 1px solid #ddd;
     border-radius: 4px;
     transition: border-color 0.3s ease-in-out;
     outline: none;
-    color: #333;
+    color: #d8d7d7;
   }
   
   input:focus {
-    border-color: #ff4500;
+    border-color: #222222;
   }
   
-  button {
-    background-color: #ff4500;
+  .button-login {
+    background-color: #222222;
     color: #fff;
     padding: 10px;
     border: none;
@@ -56,7 +57,41 @@
     transition: background-color 0.3s ease-in-out;
   }
   
-  button:hover {
-    background-color: #e63900;
+  .button-login:hover {
+    background-color: #2b2b2b;
   }
   
+
+
+
+.inp {
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+  border: 1px solid #ddd;
+  margin-bottom: 25px;
+}
+
+.inp > input {
+  
+  flex-grow:2;
+  margin-bottom: 0;
+  border:none;
+}
+
+
+.inp > input:focus {
+  outline: none;
+}
+
+
+.inp:focus-within { 
+  outline: 1px solid #ddd 
+}
+
+.inp-b {
+  margin-right: 10px;
+  font-size: larger;
+    background-color: inherit;
+    color:white;
+}

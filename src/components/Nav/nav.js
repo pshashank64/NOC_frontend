@@ -1,45 +1,58 @@
 import "./nav.css";
-import HodLoginService from "../../services/HodLoginService";
+import HodLoginService from "../../services/HodService";
+import studentService from "../../services/studentService";
 import { useState, useEffect } from "react";
 
-function Nav ({ onLoginClick }) {
+function Nav ({ onLoginClick, role, onNocClick, onViewNocClick }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-        setIsAuthenticated(HodLoginService.isAuthenticated()); // Update authentication status on component mount
+        setIsAuthenticated(HodLoginService.isAuthenticated()) || setIsAuthenticated(studentService.isAuthenticated())
     }, []);
 
     const onLogoutClick = () => {
-        HodLoginService.logout();
+        HodLoginService.logout() || studentService.logout();
         setIsAuthenticated(false);
     }
     return (
         <div>
-            <nav className="navbar navbar-expand-md navbar-dark" style={{backgroundColor:"#595B83"}}>
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="/">
-                    <img src={require('./logo.png')} alt="" />
-                    </a>
+            <nav id="sidebarMenu" className="navbar right navbar-expand-lg sidebar" style={{backgroundColor: "#37474f"}}>
+                <div className="sidebar-sticky">
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav mx-auto">
-                        <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/">Home</a>
-                        </li>
-                        {   !isAuthenticated && 
-                            <li className="nav-item">
-                                <button className="nav-link" onClick={onLoginClick}>Login</button>
-                            </li>
+                    <div id="navbarNav" className="collapse navbar-collapse list-group list-group-flush mx-3 mt-4">
+                        <a className="navbar-brand" href="/">
+                            <img src={require('./logo.png')} alt="" />
+                        </a>
+                        <a href="/" className="btn btn-dark" aria-current="true">
+                            <i className="fa-solid fa-house me-3"></i><span>Home</span>
+                        </a>
+                        {
+                            !isAuthenticated &&
+                            <a onClick={onLoginClick} className="btn btn-dark">
+                                <i className="fa-solid fa-right-to-bracket me-3"></i><span>Login</span>
+                            </a>
+                        }
+                        {
+                            isAuthenticated && role==="Student" &&
+                            <a onClick={onNocClick} className="btn btn-dark">
+                                <i className="fa-solid fa-right-to-bracket me-3"></i><span>Request NOC</span>
+                            </a>
+                        }
+                        {
+                            isAuthenticated && role==="Student" &&
+                            <a onClick={onViewNocClick} className="btn btn-dark">
+                                <i className="fa-solid fa-eye me-3"></i><span>View NOC Status</span>
+                            </a>
                         }
                         {
                             isAuthenticated &&
-                            <li className="nav-item">
-                                <button className="nav-link" onClick={onLogoutClick}>Logout</button>
-                            </li>
+                            <a onClick={onLogoutClick} className="btn btn-dark">
+                                <i className="fa-solid fa-circle-xmark me-3"></i><span>Logout</span>
+                            </a>
                         }
-                    </ul>
+                        
                     </div>
                 </div>
             </nav>
