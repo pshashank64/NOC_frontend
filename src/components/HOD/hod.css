@@ -1,12 +1,14 @@
+body{
+    background-color: #696969;
+}
 .welcome{
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-top: 20vh;
+    margin-top: 0;
 }
 .welcome h1{
-    font-family: "Comic Sans MS", cursive;
-    font-size: 10vh;
+    font-size: 5vh;
     font-weight: bold;
 }

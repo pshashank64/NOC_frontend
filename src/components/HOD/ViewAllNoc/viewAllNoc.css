@@ -1,0 +1,10 @@
+.view-all-noc{
+    display: flex;
+    justify-content: center;
+    align-items: centre;
+    color: white;
+}
+
+.approve{
+    margin-right: 10px;
+}

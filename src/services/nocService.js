@@ -14,8 +14,9 @@ const nocSerivce = {
             const hodApproval = false;
             const crpcApproval = false;
             const deanApproval = false;
+            const isRejected = false;
 
-            const response = await axios.post(`${baseURL}/noc/addNoc`, {userId, name, email, roll, ctc, company, joiningDate, isApproved, hodApproval, deanApproval, crpcApproval}, {withCredentials: true});
+            const response = await axios.post(`${baseURL}/noc/addNoc`, {userId, name, email, roll, ctc, company, joiningDate, isApproved, hodApproval, deanApproval, crpcApproval, isRejected}, {withCredentials: true});
 
             return response.data;
         } catch (error) {
@@ -29,6 +30,16 @@ const nocSerivce = {
             return noc;
         } catch (error) {
             throw error.response.data;
+        }
+    },
+
+    approveNoc: async (nocId) => {
+        try{
+            const noc = await axios.post(`${baseURL}/noc/approve`, {nocId}, {withCredentials: true});
+            return noc;
+        }
+        catch(err){
+            throw err.response.data;
         }
     }
 }

@@ -1,9 +1,11 @@
 import Nav from "../Nav/nav";
 import Login from "../Login/Login";
 import HodLoginService from "../../services/HodService";
+import ViewAllNoc from "./ViewAllNoc/viewAllNoc";
+import AddStudent from "./AddStudent/addStudent";
+import AllStudents from "./AllStudents/allStudents";
 import "./hod.css"
 
-import { getMessage } from "../../services/getMessage";
 import { useEffect, useState } from "react";
 
 function Hod () {
@@ -11,6 +13,9 @@ function Hod () {
     const [role, setRole] = useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState('');
+    const [viewAllNoc, setViewAllNoc] = useState(false);
+    const [viewAddStudent, setViewAddStudent] = useState(false);
+    const [viewAllStudents, setViewAllStudents] = useState(false);
 
     useEffect(() => {
         setIsAuthenticated(HodLoginService.isAuthenticated()); // Update authentication status on component mount
@@ -20,19 +25,46 @@ function Hod () {
     const handleLoginClick = () => {
         if(!isAuthenticated){
             setShowLogin(true);
+            setViewAllNoc(false)
+            setViewAddStudent(false)
+            setViewAllStudents(false);
             setRole("HOD") 
         }
     };
 
+    const handleViewAllNoc = () => {
+        setViewAllNoc(true);
+        setShowLogin(false);
+        setViewAddStudent(false);
+        setViewAllStudents(false);
+    }
+
+    const handleViewAddStudent = () => {
+        setViewAddStudent(true)
+        setViewAllNoc(false);
+        setShowLogin(false);
+        setViewAllStudents(false);
+    }
+
+    const handleViewAllStudents = () => {
+        setViewAddStudent(false)
+        setViewAllNoc(false);
+        setShowLogin(false);
+        setViewAllStudents(true);
+    }
+
     return (
         <>
-            <Nav onLoginClick={handleLoginClick} role="HOD" />
+            <Nav onLoginClick={handleLoginClick} role="HOD" onViewAllNoc={handleViewAllNoc} onViewAddStudent={handleViewAddStudent} onViewAllStudents={handleViewAllStudents} />
             {!showLogin && 
             <div className="welcome">
                 <h1>Welcome {user ? user : "HOD"}</h1>
             </div>
             }
             {showLogin && <Login role={role} />}
+            {viewAllNoc && <ViewAllNoc />}
+            {viewAddStudent && <AddStudent role={"Student"}/>}
+            {viewAllStudents && <AllStudents />}
         </>
     )
 }

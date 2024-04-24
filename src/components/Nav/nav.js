@@ -3,7 +3,7 @@ import HodLoginService from "../../services/HodService";
 import studentService from "../../services/studentService";
 import { useState, useEffect } from "react";
 
-function Nav ({ onLoginClick, role, onNocClick, onViewNocClick }) {
+function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, onViewAddStudent, onViewAllStudents }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -11,7 +11,12 @@ function Nav ({ onLoginClick, role, onNocClick, onViewNocClick }) {
     }, []);
 
     const onLogoutClick = () => {
-        HodLoginService.logout() || studentService.logout();
+        if(role === "HOD"){
+            HodLoginService.logout()
+        }
+        else if(role === "Student"){
+            studentService.logout();
+        }
         setIsAuthenticated(false);
     }
     return (
@@ -46,6 +51,29 @@ function Nav ({ onLoginClick, role, onNocClick, onViewNocClick }) {
                                 <i className="fa-solid fa-eye me-3"></i><span>View NOC Status</span>
                             </a>
                         }
+                        
+                        {
+                            isAuthenticated && role==="HOD" &&
+                            <a onClick={onViewAllNoc} className="btn btn-dark">
+                                <i className="fa-solid fa-right-to-bracket me-3"></i><span>View NOCs Request</span>
+                            </a>
+                        }
+                        {
+                            isAuthenticated && role==="HOD" &&
+                            <a onClick={onViewAddStudent} className="btn btn-dark">
+                                <i className="fa-solid fa-right-to-bracket me-3"></i><span>Add Student</span>
+                            </a>
+                        }
+                        {
+                            isAuthenticated && role==="HOD" &&
+                            <a onClick={onViewAllStudents} className="btn btn-dark">
+                                <i className="fa-solid fa-right-to-bracket me-3"></i><span>View All Students</span>
+                            </a>
+                        }
+
+
+
+
                         {
                             isAuthenticated &&
                             <a onClick={onLogoutClick} className="btn btn-dark">

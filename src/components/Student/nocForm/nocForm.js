@@ -46,10 +46,10 @@ function NocForm({userId}) {
             }
             
             {nocData && (
-                <diV>
+                <div style={{color: "white"}}>
                     <h1>NOC submitted successfuly!</h1>
                     <h3>You can view the status from the View NOC status button!</h3>
-                </diV>
+                </div>
             )}
         </div>
     )

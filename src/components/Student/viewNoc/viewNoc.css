@@ -1,6 +1,6 @@
 .noc-data {
     font-family: "Comic Sans MS", cursive;
-    margin: 0;
+    margin-left: 15vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,4 +11,8 @@
 
 .table{
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.noc-details{
+  display: flex;
 }

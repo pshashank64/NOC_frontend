@@ -1,5 +1,4 @@
 import axios from 'axios';
-import cookie from 'js-cookie';
 
 const baseURL = 'http://localhost:8000/api/student';
 
@@ -31,7 +30,7 @@ const studentService = {
     localStorage.removeItem('user');
     localStorage.removeItem('roll');
     localStorage.removeItem('userId');
-    // window.location.reload();
+    window.location.reload();
   },
 
   getSession: () => {

@@ -1,8 +1,10 @@
 import Nav from "../Nav/nav";
 import Login from "../Login/Login";
 import studentService from "../../services/studentService";
+import defaultService from "../../services/defaultService";
 import NocForm from "./nocForm/nocForm";
 import ViewNoc from "./viewNoc/viewNoc";
+import NotFound from "../NotFound/NotFound";
 import "./student.css"
 
 import { useEffect, useState } from "react";
@@ -12,13 +14,15 @@ function Student () {
     const [showNoc, setShowNoc] = useState(false);
     const [viewNoc, setViewNoc] = useState(false);
     const [role, setRole] = useState('');
+    const [defaultRole, setDefaultRole] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState('');
     const [userId, setUserId] = useState('');
 
     useEffect(() => {
-        setIsAuthenticated(studentService.isAuthenticated()); // Update authentication status on component mount
+        setIsAuthenticated(studentService.isAuthenticated());
         setUser(studentService.getUser());
+        setDefaultRole(defaultService.getDefaultRole());
     }, []);
 
     const handleLoginClick = () => {
@@ -45,17 +49,26 @@ function Student () {
     }
 
     return (
-        <>
-            <Nav onLoginClick={handleLoginClick} role="Student" onNocClick={handleNocClick} onViewNocClick={handleViewNoc} />
-            {!showLogin && 
-            <div className="welcome">
-                <h3>Welcome {user ? user : "Student"}</h3><br />
-                {!isAuthenticated && <h3>Kindly Login to proceed with the services...</h3>}
-            </div>
+        <> 
+            {(defaultRole && defaultRole !== "Student") && (
+                <NotFound message={"Someone else is already logged in!"} />
+            )
+
             }
-            {showLogin && !isAuthenticated && <Login role={role} />}
-            {showNoc && isAuthenticated && <NocForm userId={userId} />}
-            {viewNoc && isAuthenticated && <ViewNoc userId={userId} />}
+            {(!defaultRole || defaultRole === "Student" ) && (
+                <>
+                    <Nav onLoginClick={handleLoginClick} role="Student" onNocClick={handleNocClick} onViewNocClick={handleViewNoc} />
+                    {!showLogin && 
+                    <div className="welcome">
+                        <h3>Welcome {user ? user : "Student"}</h3><br />
+                        {!isAuthenticated && <h3>Kindly Login to proceed with the services...</h3>}
+                    </div>
+                    }
+                    {showLogin && !isAuthenticated && <Login role={role} />}
+                    {showNoc && isAuthenticated && <NocForm userId={userId} />}
+                    {viewNoc && isAuthenticated && <ViewNoc userId={userId} />}
+                </>
+            )}
         </>
     )
 }
