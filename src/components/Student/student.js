@@ -52,9 +52,8 @@ function Student () {
         <> 
             {(defaultRole && defaultRole !== "Student") && (
                 <NotFound message={"Someone else is already logged in!"} />
-            )
-
-            }
+            )}
+            
             {(!defaultRole || defaultRole === "Student" ) && (
                 <>
                     <Nav onLoginClick={handleLoginClick} role="Student" onNocClick={handleNocClick} onViewNocClick={handleViewNoc} />

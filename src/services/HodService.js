@@ -86,9 +86,9 @@ const HodLoginService = {
     }
   },
 
-  rejectNoc: async (nocId) => {
+  rejectNoc: async (nocId, rejectedBy) => {
     try {
-      const data = await axios.post(`${baseURL}/noc/reject`, {nocId}, {withCredentials: true});
+      const data = await axios.post(`${baseURL}/noc/reject`, {nocId, rejectedBy}, {withCredentials: true});
       return data;
     } catch (error) {
       throw error.response.data;

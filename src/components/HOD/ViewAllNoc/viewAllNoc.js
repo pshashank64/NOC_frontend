@@ -50,7 +50,7 @@ function ViewAllNoc(){
             const confirmed = window.confirm("Are you sure to reject the NOC?");
             if(!confirmed) return;
 
-            const rejectedNOC = await hodService.rejectNoc(id);
+            const rejectedNOC = await hodService.rejectNoc(id, "HOD");
             alert("Noc Rejected!");
 
             setNOCs(prevNOCs => {

@@ -77,3 +77,17 @@
 	 color: #CCC;
 	 padding-left: 10px;
 }
+
+
+.StepProgress-item.is-not-done::before {
+	border-left: 2px solid rgb(238, 240, 238);
+}
+.StepProgress-item.is-not-done::after {
+	content: "✘";
+	font-size: 13px;
+	padding-top: 5px;
+	color: #780303;
+	text-align: center;
+	border: 2px solid rgb(223, 28, 3);
+	background-color: rgb(238, 240, 238);
+}

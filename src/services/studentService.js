@@ -16,6 +16,7 @@ const studentService = {
       localStorage.setItem('user', session.session.user.name);
       localStorage.setItem('roll', session.session.user.roll);
       localStorage.setItem('userId', session.session.user.id);
+      localStorage.setItem('role', session.session.user.role);
 
       return response.data;
     } catch (error) {

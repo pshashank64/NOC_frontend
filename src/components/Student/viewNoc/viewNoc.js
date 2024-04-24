@@ -92,6 +92,8 @@ function ViewNoc({userId}) {
                         hodApproval={noc.data.hodApproval}
                         crpcApproval={noc.data.crpcApproval}
                         deanApproval={noc.data.deanApproval}
+                        isRejected={noc.data.isRejected}
+                        rejectedBy={noc.data.rejectedBy}
                     />
                 </div>
             ) : (
