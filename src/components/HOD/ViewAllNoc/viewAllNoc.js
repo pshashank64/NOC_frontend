@@ -45,8 +45,26 @@ function ViewAllNoc(){
         }
     }    
 
-    const handleRejectionClick = () => {
+    const handleRejectionClick = async (id) => {
+        try {
+            const confirmed = window.confirm("Are you sure to reject the NOC?");
+            if(!confirmed) return;
 
+            const rejectedNOC = await hodService.rejectNoc(id);
+            alert("Noc Rejected!");
+
+            setNOCs(prevNOCs => {
+                const updatedNOCs = prevNOCs.map(noc => {
+                    if (noc._id === id) {
+                        return { ...noc, isRejected: true };
+                    }
+                    return noc;
+                });
+                return updatedNOCs;
+            });
+        } catch (err) {
+            alert("Error in rejecting");
+        }
     }
 
     return(
@@ -80,7 +98,7 @@ function ViewAllNoc(){
                                 <td>{noc.joiningDate}</td>
                                 <td style={{textAlign: "center"}}>
                                     {
-                                        noc.isRejected ? "Rejected" : noc.hodApproval ? "Approved" : 
+                                        noc.isRejected ? <p style={{color:"red"}}>Rejected</p> : noc.hodApproval ? "Approved" : 
                                         <p>
                                             <button className="btn btn-secondary approve" onClick={() => handleApprovalClick(noc._id)}><i className="fa-solid fa-check-double"></i></button>
                                             <button className="btn btn-danger" onClick={() => handleRejectionClick(noc._id)}><i className="fa-solid fa-circle-xmark"></i></button>
