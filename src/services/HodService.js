@@ -77,9 +77,9 @@ const HodLoginService = {
     }
   },
 
-  approveNoc: async (nocId) => {
+  approveNoc: async (nocId, role) => {
     try {
-      const data = await axios.post(`${baseURL}/noc/approve`, {nocId}, {withCredentials: true});
+      const data = await axios.post(`${baseURL}/noc/approve`, {nocId, role}, {withCredentials: true});
       return data;
     } catch (error) {
       throw error.response.data;

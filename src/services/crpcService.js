@@ -7,7 +7,9 @@ const CRPCService = {
   login: async (email, password, role) => {
     try {
       const response = await axios.post(`${baseURL}/sign-in`, { email, password, role }, {withCredentials: true});
-
+      if(!response){
+        console.log("Login error!")
+      }
       const session  = response.data;
       console.log(session.message);
 
@@ -58,9 +60,9 @@ const CRPCService = {
     }
   },
 
-  approveNoc: async (nocId) => {
+  approveNoc: async (nocId, role) => {
     try {
-      const data = await axios.post(`${baseURL}/noc/approve`, {nocId}, {withCredentials: true});
+      const data = await axios.post(`${baseURL}/noc/approve`, {nocId, role}, {withCredentials: true});
       return data;
     } catch (error) {
       throw error.response.data;

@@ -2,12 +2,13 @@ import "./nav.css";
 import HodLoginService from "../../services/HodService";
 import studentService from "../../services/studentService";
 import { useState, useEffect } from "react";
+import CRPCService from "../../services/crpcService";
 
 function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, onViewAddStudent, onViewAllStudents }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-        setIsAuthenticated(HodLoginService.isAuthenticated()) || setIsAuthenticated(studentService.isAuthenticated())
+        setIsAuthenticated(HodLoginService.isAuthenticated()) || setIsAuthenticated(studentService.isAuthenticated() || setIsAuthenticated(CRPCService.isAuthenticated()))
     }, []);
 
     const onLogoutClick = () => {
@@ -16,6 +17,9 @@ function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, on
         }
         else if(role === "Student"){
             studentService.logout();
+        }
+        else if(role === "CRPC"){
+            CRPCService.logout();
         }
         setIsAuthenticated(false);
     }
@@ -53,7 +57,7 @@ function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, on
                         }
                         
                         {
-                            isAuthenticated && role==="HOD" &&
+                            isAuthenticated && (role==="HOD" || role === "CRPC") &&
                             <a onClick={onViewAllNoc} className="btn btn-dark">
                                 <i className="fa-solid fa-right-to-bracket me-3"></i><span>View NOCs Request</span>
                             </a>

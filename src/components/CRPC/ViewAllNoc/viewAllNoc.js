@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import hodService from "../../../services/HodService"
+import CRPCService from "../../../services/crpcService";
 import "./viewAllNoc.css"
 
 function ViewAllNoc(){
@@ -10,7 +10,7 @@ function ViewAllNoc(){
         const fetchNOCs = async () => {
             try {
                 setIsLoading(true);
-                const data = await hodService.viewAllNOCs();
+                const data = await CRPCService.viewAllNOCs();
                 // console.log(data.data);
                 setNOCs(data.data);
             } catch (error) {
@@ -27,14 +27,14 @@ function ViewAllNoc(){
             const confirmed = window.confirm("Are you sure to approve the NOC?");
             if(!confirmed) return;
 
-            const approvedNoc = await hodService.approveNoc(id, "HOD");
+            const approvedNoc = await CRPCService.approveNoc(id, "CRPC");
             alert("Noc Approved");
 
             setNOCs(prevNOCs => {
                 const updatedNOCs = prevNOCs.map(noc => {
                     if (noc._id === id) {
                         // Update the hodApproval flag to true
-                        return { ...noc, hodApproval: true };
+                        return { ...noc, crpcApproval: true };
                     }
                     return noc;
                 });
@@ -50,7 +50,7 @@ function ViewAllNoc(){
             const confirmed = window.confirm("Are you sure to reject the NOC?");
             if(!confirmed) return;
 
-            const rejectedNOC = await hodService.rejectNoc(id, "HOD");
+            const rejectedNOC = await CRPCService.rejectNoc(id, "CRPC");
             alert("Noc Rejected!");
 
             setNOCs(prevNOCs => {
@@ -71,7 +71,6 @@ function ViewAllNoc(){
         <div className="all-students">
             {isLoading ? (
                 <div className="loader"></div>
-                // <h2>Loading students data...</h2>
             ) : (
                 <table className="table table-dark table-striped table-bordered table-hover" style={{minWidth: "65vw", maxWidth: "70vw", marginTop: "10vh", marginLeft: "10vw"}}>
                     <thead>
@@ -98,7 +97,7 @@ function ViewAllNoc(){
                                 <td>{noc.joiningDate}</td>
                                 <td style={{textAlign: "center"}}>
                                     {
-                                        noc.isRejected ? <p style={{color:"red"}}>Rejected</p> : noc.hodApproval ? "Approved" : 
+                                        noc.isRejected ? <p style={{color:"red"}}>Rejected</p> : noc.crpcApproval ? "Approved" : !noc.hodApproval ? "Waiting for HOD" :
                                         <p>
                                             <button className="btn btn-secondary approve" onClick={() => handleApprovalClick(noc._id)}><i className="fa-solid fa-check-double"></i></button>
                                             <button className="btn btn-danger" onClick={() => handleRejectionClick(noc._id)}><i className="fa-solid fa-circle-xmark"></i></button>
