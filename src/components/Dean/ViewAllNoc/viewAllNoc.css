@@ -1,0 +1,21 @@
+.view-all-noc{
+    display: flex;
+    justify-content: center;
+    align-items: centre;
+    color: white;
+}
+
+.approve{
+    margin-right: 10px;
+}
+
+.all-students{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10vh;
+}
+
+.loader{
+    margin-top: 35vh;
+}

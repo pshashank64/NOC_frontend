@@ -3,6 +3,7 @@ import HodLoginService from "../../services/HodService";
 import studentService from "../../services/studentService"
 import { useState } from "react";
 import CRPCService from "../../services/crpcService";
+import DeanService from "../../services/deanService";
 
 function Login({role}) {
     const [email, setEmail] = useState('');
@@ -20,6 +21,9 @@ function Login({role}) {
             }
             else if(role === "CRPC"){
                 const data = await CRPCService.login(email, password, role);
+            }
+            else if(role === "Dean"){
+                const data = await DeanService.login(email, password, role);
             }
 
         

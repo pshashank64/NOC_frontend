@@ -21,6 +21,9 @@ function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, on
         else if(role === "CRPC"){
             CRPCService.logout();
         }
+        else if(role === "Dean"){
+            CRPCService.logout();
+        }
         setIsAuthenticated(false);
     }
     return (
@@ -57,7 +60,7 @@ function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, on
                         }
                         
                         {
-                            isAuthenticated && (role==="HOD" || role === "CRPC") &&
+                            isAuthenticated && (role==="HOD" || role === "CRPC" || role === "Dean") &&
                             <a onClick={onViewAllNoc} className="btn btn-dark">
                                 <i className="fa-solid fa-right-to-bracket me-3"></i><span>View NOCs Request</span>
                             </a>
@@ -74,9 +77,6 @@ function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, on
                                 <i className="fa-solid fa-right-to-bracket me-3"></i><span>View All Students</span>
                             </a>
                         }
-
-
-
 
                         {
                             isAuthenticated &&
