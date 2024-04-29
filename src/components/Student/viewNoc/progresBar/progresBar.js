@@ -1,8 +1,27 @@
 import "./progressBar.css"
+import axios from "axios";
 
-function ProgressBar({ isApproved, hodApproval, crpcApproval, deanApproval, isRejected, rejectedBy }) {
+function ProgressBar({ nocId, isApproved, hodApproval, crpcApproval, deanApproval, isRejected, rejectedBy }) {
+
+    const handleDownload = async (nocId) => {
+        try {
+            const response = await axios.get(`http://localhost:8000/api/student/download-noc/${nocId}`, {
+                responseType: 'blob',
+            });
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'noc.pdf');
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error('Error downloading PDF: ', error);
+        }
+    }
+
     return (
-        <div style={{ marginLeft: "5vw", marginTop: "15vh" }}>
+        <div style={{ marginLeft: "5vw", marginTop: "10vh" }}>
             <div className="wrapper">
                 <ul className="StepProgress">
                     <div className="StepProgress-item is-done">
@@ -29,6 +48,14 @@ function ProgressBar({ isApproved, hodApproval, crpcApproval, deanApproval, isRe
                                     <strong>NOC Approved!</strong>
                                 </div>
                             </div>
+                        )
+                    }
+
+                    {
+                        isApproved ? (
+                            <button onClick={() => handleDownload(nocId)} className="btn btn-dark" style={{marginTop: "5vh"}}>Download NOC PDF</button>
+                        ) : (
+                            <></>
                         )
                     }
                     

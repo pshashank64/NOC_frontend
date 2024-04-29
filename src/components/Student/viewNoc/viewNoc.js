@@ -94,6 +94,7 @@ function ViewNoc({userId}) {
                         deanApproval={noc.data.deanApproval}
                         isRejected={noc.data.isRejected}
                         rejectedBy={noc.data.rejectedBy}
+                        nocId={noc.data._id}
                     />
                 </div>
             ) : (
