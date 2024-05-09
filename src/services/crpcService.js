@@ -76,6 +76,15 @@ const CRPCService = {
     } catch (error) {
       throw error.response.data;
     }
+  },
+
+  verifyNoc: async (nocId) => {
+    try {
+      const data = await axios.get(`${baseURL}/noc/verify`, {params: {"id": nocId}, withCredentials: true})
+      return data;
+    } catch (error) {
+      throw error.response.data;
+    }
   }
   
 };

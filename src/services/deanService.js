@@ -58,9 +58,18 @@ const DeanService = {
     }
   },
 
-  approveNoc: async (nocId, role) => {
+  approveNoc: async (nocId, role, ctc) => {
     try {
-      const data = await axios.post(`${baseURL}/noc/approve`, {nocId, role}, {withCredentials: true});
+      const data = await axios.post(`${baseURL}/noc/approve`, {nocId, role, ctc}, {withCredentials: true});
+      return data;
+    } catch (error) {
+      throw error.response.data;
+    }
+  },
+
+  approveHighNoc: async (nocId, role, ctc) => {
+    try {
+      const data = await axios.post(`${baseURL}/noc/approve`, {nocId, role, ctc}, {withCredentials: true});
       return data;
     } catch (error) {
       throw error.response.data;

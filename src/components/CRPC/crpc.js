@@ -3,6 +3,7 @@ import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
 import defaultService from  "../../services/defaultService";
 import ViewAllNoc from "./ViewAllNoc/viewAllNoc";
+import VerifyNoc from "./VerifyNOC/VerifyNoc";
 import crpcService from "../../services/crpcService";
 import { useState, useEffect } from "react";
 
@@ -15,6 +16,7 @@ function CRPC() {
     const [user, setUser] = useState('');
     const [defaultRole, setDefaultRole] = useState("");
     const [viewAllNoc, setViewAllNoc] = useState(false);
+    const [verifyNoc, setVerifyNoc] = useState(false);
 
     useEffect(() => {
         setIsAuthenticated(crpcService.isAuthenticated()); // Update authentication status on component mount
@@ -26,6 +28,7 @@ function CRPC() {
         if(!isAuthenticated){
             setShowLogin(true);
             setViewAllNoc(false)
+            setVerifyNoc(false);
             setRole("CRPC") 
         }
     };
@@ -33,6 +36,13 @@ function CRPC() {
     const handleViewAllNoc = () => {
         setViewAllNoc(true);
         setShowLogin(false);
+        setVerifyNoc(false);
+    }
+
+    const handleVerifyNoc = () => {
+        setVerifyNoc(true);
+        setShowLogin(false);
+        setViewAllNoc(false);
     }
 
     return (
@@ -43,7 +53,7 @@ function CRPC() {
 
             {(!defaultRole || defaultRole === "CRPC" ) && (
                 <>
-                    <Nav onLoginClick={handleLoginClick} role="CRPC" onViewAllNoc={handleViewAllNoc} />
+                    <Nav onLoginClick={handleLoginClick} role="CRPC" onViewAllNoc={handleViewAllNoc} onVerifyNoc={handleVerifyNoc}  />
                     {!showLogin && 
                     <div className="welcome">
                         <h1>Welcome {user ? user : "CRPC"}</h1>
@@ -51,6 +61,7 @@ function CRPC() {
                     }
                     {showLogin && <Login role={role} />}
                     {viewAllNoc && <ViewAllNoc />}
+                    {verifyNoc && <VerifyNoc />}
                 </>
             )}
         </>

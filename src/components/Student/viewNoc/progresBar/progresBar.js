@@ -1,7 +1,7 @@
 import "./progressBar.css"
 import axios from "axios";
 
-function ProgressBar({ nocId, isApproved, hodApproval, crpcApproval, deanApproval, isRejected, rejectedBy }) {
+function ProgressBar({ctc, nocId, isApproved, hodApproval, crpcApproval, deanApproval, isRejected, rejectedBy }) {
 
     const handleDownload = async (nocId) => {
         try {
@@ -32,7 +32,7 @@ function ProgressBar({ nocId, isApproved, hodApproval, crpcApproval, deanApprova
                             <div className="StepProgress-item is-not-done">
                                 <strong style={{color:"red"}}>Rejected by {rejectedBy}</strong>
                             </div>
-                        ) : 
+                        ) : ctc < 7 ?
                         (
                             <div>
                                 <div className={`StepProgress-item ${hodApproval ? "is-done" : "current"}`}>
@@ -41,6 +41,15 @@ function ProgressBar({ nocId, isApproved, hodApproval, crpcApproval, deanApprova
                                 <div className={`StepProgress-item ${crpcApproval ? "is-done" : "current"}`}>
                                     <strong>CRPC Approval</strong>
                                 </div>
+                                <div className={`StepProgress-item ${deanApproval ? "is-done" : "current"}`}>
+                                    <strong>Dean Approval</strong>
+                                </div>
+                                <div className={`StepProgress-item ${isApproved ? "is-done" : "current"}`}>
+                                    <strong>NOC Approved!</strong>
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
                                 <div className={`StepProgress-item ${deanApproval ? "is-done" : "current"}`}>
                                     <strong>Dean Approval</strong>
                                 </div>

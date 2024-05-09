@@ -95,6 +95,7 @@ function ViewNoc({userId}) {
                         isRejected={noc.data.isRejected}
                         rejectedBy={noc.data.rejectedBy}
                         nocId={noc.data._id}
+                        ctc = {noc.data.ctc}
                     />
                 </div>
             ) : (

@@ -3,8 +3,9 @@ import HodLoginService from "../../services/HodService";
 import studentService from "../../services/studentService";
 import { useState, useEffect } from "react";
 import CRPCService from "../../services/crpcService";
+import DeanService from "../../services/deanService";
 
-function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, onViewAddStudent, onViewAllStudents }) {
+function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, onViewAddStudent, onViewAllStudents, onVerifyNoc }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -22,7 +23,7 @@ function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, on
             CRPCService.logout();
         }
         else if(role === "Dean"){
-            CRPCService.logout();
+            DeanService.logout();
         }
         setIsAuthenticated(false);
     }
@@ -75,6 +76,13 @@ function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, on
                             isAuthenticated && role==="HOD" &&
                             <a onClick={onViewAllStudents} className="btn btn-dark">
                                 <i className="fa-solid fa-right-to-bracket me-3"></i><span>View All Students</span>
+                            </a>
+                        }
+
+                        {
+                            isAuthenticated && role==="CRPC" &&
+                            <a onClick={onVerifyNoc} className="btn btn-dark">
+                                <i className="fa-solid fa-right-to-bracket me-3"></i><span>Verify NOC</span>
                             </a>
                         }
 

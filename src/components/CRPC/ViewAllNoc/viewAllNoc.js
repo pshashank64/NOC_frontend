@@ -12,7 +12,9 @@ function ViewAllNoc(){
                 setIsLoading(true);
                 const data = await CRPCService.viewAllNOCs();
                 // console.log(data.data);
-                setNOCs(data.data);
+                // setNOCs(data.data);
+                const filteredNoc = data.data.filter(noc => noc.ctc < 7);
+                setNOCs(filteredNoc);
             } catch (error) {
                 console.error('Error fetching NOCs: ', error);
             } finally {
