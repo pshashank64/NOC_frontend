@@ -8,11 +8,15 @@ import NotFound from "../NotFound/NotFound";
 import "./student.css"
 
 import { useEffect, useState } from "react";
+import UploadNoc from "./uploadNoc/uploadNoc";
+import AddLeetCodeUrl from "./AddLeetcode/addLeetcode";
 
 function Student () {
     const [showLogin, setShowLogin] = useState(false);
     const [showNoc, setShowNoc] = useState(false);
     const [viewNoc, setViewNoc] = useState(false);
+    const [viewNocUpload, setViewNocUpload] = useState(false);
+    const [viewUrlUpload, setViewUrlUpload] = useState(false);
     const [role, setRole] = useState('');
     const [defaultRole, setDefaultRole] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -30,6 +34,8 @@ function Student () {
             setShowLogin(true);
             setViewNoc(false);
             setShowNoc(false);
+            setViewNocUpload(false);
+            setViewUrlUpload(false);
             setRole("Student") 
         }
     };
@@ -38,6 +44,8 @@ function Student () {
         setShowNoc(true);
         setShowLogin(false);
         setViewNoc(false);
+        setViewNocUpload(false);
+        setViewUrlUpload(false);
         setUserId(studentService.getUserId());
     }
 
@@ -46,6 +54,26 @@ function Student () {
         setViewNoc(true);
         setShowNoc(false);
         setShowLogin(false);
+        setViewNocUpload(false);
+        setViewUrlUpload(false);
+    }
+
+    const handleNocUpload = () => {
+        setUserId(studentService.getUserId());
+        setViewNoc(false);
+        setShowNoc(false);
+        setShowLogin(false);
+        setViewNocUpload(true);
+        setViewUrlUpload(false);
+    }
+
+    const handleUploadCodeClick = () => {
+        setUserId(studentService.getUserId());
+        setViewNoc(false);
+        setShowNoc(false);
+        setShowLogin(false);
+        setViewNocUpload(false);
+        setViewUrlUpload(true);
     }
 
     return (
@@ -56,7 +84,7 @@ function Student () {
             
             {(!defaultRole || defaultRole === "Student" ) && (
                 <>
-                    <Nav onLoginClick={handleLoginClick} role="Student" onNocClick={handleNocClick} onViewNocClick={handleViewNoc} />
+                    <Nav onLoginClick={handleLoginClick} role="Student" onNocClick={handleNocClick} onViewNocClick={handleViewNoc} onViewNocUploadClick={handleNocUpload} onViewUploadCodeClick={handleUploadCodeClick}/>
                     {!showLogin && 
                     <div className="welcome">
                         <h3>Welcome {user ? user : "Student"}</h3><br />
@@ -66,6 +94,8 @@ function Student () {
                     {showLogin && !isAuthenticated && <Login role={role} />}
                     {showNoc && isAuthenticated && <NocForm userId={userId} />}
                     {viewNoc && isAuthenticated && <ViewNoc userId={userId} />}
+                    {viewNocUpload && isAuthenticated && <UploadNoc userId={userId} />}
+                    {viewUrlUpload && isAuthenticated && <AddLeetCodeUrl/>}
                 </>
             )}
         </>

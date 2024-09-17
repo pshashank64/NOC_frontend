@@ -1,6 +1,7 @@
 import "./allStudents.css"
 import hodService from "../../../services/HodService";
 import { useEffect, useState } from "react";
+import nocSerivce from "../../../services/nocService";
 
 function AllStudents(){
     const [students, setStudents] = useState([]);
@@ -24,6 +25,19 @@ function AllStudents(){
         fetchStudents();
     }, []);
 
+    const handleDownloadNocClick = async (id) => {
+        try {
+            const response = await nocSerivce.downloadNoc(id);
+            const blob = new Blob([response.data], { type: "application/pdf" });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'noc.pdf';
+            link.click();
+        } catch (error) {
+            console.error("Error downloading file: ", error);
+        }
+    }
+
     return (
         <div className="all-students">
             {isLoading ? (
@@ -37,6 +51,9 @@ function AllStudents(){
                             <th>Name</th>
                             <th>Email</th>
                             <th>Roll Number</th>
+                            <th>Leetcode URL</th>
+                            <th>NOC Doc</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +63,12 @@ function AllStudents(){
                                 <td>{student.name}</td>
                                 <td>{student.email}</td>
                                 <td>{student.roll}</td>
+                                {!student.leetcodeurl && <td>No URL</td>}
+                                {student.leetcodeurl && <td>{student.leetcodeurl}</td>}
+                                {!student.nocFileUrl && <td>No NOC</td>}
+                                {student.nocFileUrl && <td><button className="btn btn-secondary approve" onClick={() => handleDownloadNocClick(student._id)}><i className="fa-solid fa-download"></i></button></td>}
+                                
+                                {/* <td>{student.nocFileUrl}</td> */}
                             </tr>
                         ))}
                     </tbody>

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import CRPCService from "../../services/crpcService";
 import DeanService from "../../services/deanService";
 
-function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, onViewAddStudent, onViewAllStudents, onVerifyNoc }) {
+function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, onViewAddStudent, onViewAllStudents, onVerifyNoc, onViewNocUploadClick, onViewUploadCodeClick }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -59,7 +59,18 @@ function Nav ({ onLoginClick, role, onNocClick, onViewNocClick, onViewAllNoc, on
                                 <i className="fa-solid fa-eye me-3"></i><span>View NOC Status</span>
                             </a>
                         }
-                        
+                        {
+                            isAuthenticated && role==="Student" &&
+                            <a onClick={onViewNocUploadClick} className="btn btn-dark">
+                                <i className="fa-solid fa-eye me-3"></i><span>Upload NOC Document</span>
+                            </a>
+                        }
+                        {
+                            isAuthenticated && role==="Student" &&
+                            <a onClick={onViewUploadCodeClick} className="btn btn-dark">
+                                <i className="fa-solid fa-eye me-3"></i><span>Add Leetcode Url</span>
+                            </a>
+                        }
                         {
                             isAuthenticated && (role==="HOD" || role === "CRPC" || role === "Dean") &&
                             <a onClick={onViewAllNoc} className="btn btn-dark">
